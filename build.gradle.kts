@@ -8,6 +8,7 @@ subprojects {
 }
 
 plugins {
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
     @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.androidApplication) apply false
     @Suppress("DSL_SCOPE_VIOLATION")

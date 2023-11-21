@@ -13,3 +13,4 @@ rootProject.name = "WebKMP"
 include(":shared")
 include(":jsApp")
 include(":androidApp")
+include(":composeUI")
