@@ -18,15 +18,20 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.client.negotiation)
+                implementation(libs.ktor.serialization.json)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.aakira.napier)
                 implementation(libs.sqldelight.coroutines)
+                implementation(libs.koin.core)
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.sqldelight.driver.android)
+                implementation(libs.koin.android)
             }
         }
         val jsMain by getting {
