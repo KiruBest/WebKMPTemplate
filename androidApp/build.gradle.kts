@@ -59,9 +59,11 @@ dependencies {
     implementation(libs.material3)
 
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
     implementation(project(":shared"))
+    implementation(project(":composeUI"))
 }
