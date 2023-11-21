@@ -30,10 +30,13 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(compose.html.core)
+                implementation(compose.html.svg)
                 implementation(compose.runtime)
 
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
+
+                implementation(libs.koin.core)
 
                 implementation(project(":shared"))
             }
