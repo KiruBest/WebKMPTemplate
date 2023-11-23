@@ -2,6 +2,7 @@ package com.tsutsurin.androidapp
 
 import android.app.Application
 import com.tsutsurin.androidapp.di.androidModule
+import com.tsutsurin.composeui.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             androidLogger()
-            modules(sharedModule() + androidModule)
+            modules(sharedModule() + viewModelModule + androidModule)
         }
     }
 }

@@ -11,19 +11,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.arkivanov.essenty.lifecycle.Lifecycle
+import com.arkivanov.essenty.lifecycle.LifecycleOwner
+import com.arkivanov.essenty.lifecycle.essentyLifecycle
 import com.tsutsurin.composeui.App
 
 class MainActivity : ComponentActivity() {
+    private var essentyLifecycleOwner: LifecycleOwner? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        essentyLifecycleOwner = object : LifecycleOwner {
+            override val lifecycle: Lifecycle = essentyLifecycle()
+        }
+
         setContent {
             App(
                 modifier = Modifier.systemBarsPadding(),
+                lifecycleOwner = essentyLifecycleOwner!!,
                 onThemeApplied = {
                     WindowInsets(darkTheme = it)
                 }
             )
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        essentyLifecycleOwner = null
     }
 
     @Composable

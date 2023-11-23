@@ -1,10 +1,18 @@
 package com.tsutsurin.jsapp.pages
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.tsutsurin.composecore.collectAsStateWithLifecycle
+import com.tsutsurin.composecore.collectWithLifecycle
+import com.tsutsurin.composecore.lifecycle.LocalLifecycleOwner
 import com.tsutsurin.jsapp.HeadlineTextStyle
 import com.tsutsurin.jsapp.SubheadlineTextStyle
 import com.tsutsurin.jsapp.components.layouts.PageLayout
+import com.tsutsurin.jsapp.di.DI
 import com.tsutsurin.jsapp.toSitePalette
+import com.tsutsurin.mvi.main.MainSideEffect
 import com.varabyte.kobweb.compose.css.StyleVariable
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -45,6 +53,7 @@ import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
+import ru.tsutsurin.webkmp.util.platformDispatchers
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle by ComponentStyle {
@@ -81,7 +90,25 @@ private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, he
 @Page
 @Composable
 fun HomePage() {
-    PageLayout("Home") {
+    //test
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val viewModel = remember { DI.mainViewModel }
+    lifecycleOwner.lifecycle.doOnDestroy {
+        viewModel.onCleared()
+    }
+    val title = remember { mutableStateOf("Home") }
+
+    val state = viewModel.stateFlow
+        .collectAsStateWithLifecycle(context = platformDispatchers.unconfined)
+
+    viewModel.sideEffect.collectWithLifecycle(context = platformDispatchers.unconfined) {
+        when(it) {
+            is MainSideEffect.Show -> title.value = it.text
+        }
+    }
+    //test
+
+    PageLayout(title.value) {
         Row(HeroContainerStyle.toModifier()) {
             Box {
                 val sitePalette = ColorMode.current.toSitePalette()

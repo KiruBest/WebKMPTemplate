@@ -29,6 +29,8 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
+                implementation(libs.kotlinx.coroutines.core)
+
                 implementation(compose.html.core)
                 implementation(compose.html.svg)
                 implementation(compose.runtime)
@@ -38,7 +40,11 @@ kotlin {
 
                 implementation(libs.koin.core)
 
+                implementation(libs.essenty.lifecycle)
+
                 implementation(project(":shared"))
+                implementation(project(":mvi"))
+                implementation(project(":composeCore"))
             }
         }
     }
