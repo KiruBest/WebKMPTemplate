@@ -57,12 +57,13 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
+
+    implementation(libs.essenty.lifecycle)
 
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
-
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
 
     implementation(project(":shared"))
     implementation(project(":composeUI"))

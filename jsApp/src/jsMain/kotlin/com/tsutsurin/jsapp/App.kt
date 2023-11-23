@@ -1,8 +1,11 @@
 package com.tsutsurin.jsapp
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import com.tsutsurin.composecore.lifecycle.LocalLifecycleOwner
 import com.tsutsurin.jsapp.di.initKoin
+import com.tsutsurin.jsapp.utils.DisposableLifecycleOwner
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.compose.ui.modifiers.scrollBehavior
@@ -30,7 +33,10 @@ fun initColorMode(ctx: InitSilkContext) {
 @Composable
 fun App(content: @Composable () -> Unit) {
     initKoin()
-    AppUI(content)
+    val lifecycleOwner = DisposableLifecycleOwner()
+    CompositionLocalProvider(LocalLifecycleOwner provides lifecycleOwner) {
+        AppUI(content)
+    }
 }
 
 @Composable

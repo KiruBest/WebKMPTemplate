@@ -25,7 +25,13 @@ kotlin {
 
                 implementation(libs.koin.core)
 
+                implementation(libs.aakira.napier)
+
+                implementation(libs.essenty.lifecycle)
+
                 implementation(project(":shared"))
+                implementation(project(":mvi"))
+                implementation(project(":composeCore"))
             }
         }
         val androidMain by getting

@@ -7,6 +7,12 @@ subprojects {
     }
 }
 
+buildscript {
+    dependencies {
+        classpath(libs.moko.resources.generator)
+    }
+}
+
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
     @Suppress("DSL_SCOPE_VIOLATION")
